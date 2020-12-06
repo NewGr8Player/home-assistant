@@ -148,42 +148,12 @@ SYSCONFDIR=${SYSCONFDIR:-/etc}
 DATA_SHARE=${DATA_SHARE:-$PREFIX/share/hassio}
 CONFIG=$SYSCONFDIR/hassio.json
 
-# Generate hardware options
-case $ARCH in
-    "i386" | "i686")
-        MACHINE=${MACHINE:=qemux86}
-        HASSIO_DOCKER="$DOCKER_REPO/i386-hassio-supervisor"
-    ;;
-    "x86_64")
-        MACHINE=${MACHINE:=qemux86-64}
-        HASSIO_DOCKER="$DOCKER_REPO/amd64-hassio-supervisor"
-    ;;
-    "arm" |"armv6l")
-        if [ -z $MACHINE ]; then
-            error "Please set machine for $ARCH"
-        fi
-        HASSIO_DOCKER="$DOCKER_REPO/armhf-hassio-supervisor"
-    ;;
-    "armv7l")
-        if [ -z $MACHINE ]; then
-            error "Please set machine for $ARCH"
-        fi
-        HASSIO_DOCKER="$DOCKER_REPO/armv7-hassio-supervisor"
-    ;;
-    "aarch64")
-        if [ -z $MACHINE ]; then
-            error "Please set machine for $ARCH"
-        fi
-        HASSIO_DOCKER="$DOCKER_REPO/aarch64-hassio-supervisor"
-    ;;
-    *)
-        error "$ARCH unknown!"
-    ;;
-esac
+MACHINE=${MACHINE:=raspberrypi4-64}
+HASSIO_DOCKER="$DOCKER_REPO/aarch64-hassio-supervisor"
 
-# if [[ ! "${MACHINE}" =~ ^(intel-nuc|odroid-c2|odroid-n2|odroid-xu|qemuarm|qemuarm-64|qemux86|qemux86-64|raspberrypi|raspberrypi2|raspberrypi3|raspberrypi4|raspberrypi3-64|raspberrypi4-64|tinker)$ ]]; then
-#    error "Unknown machine type ${MACHINE}!"
-# fi
+if [[ ! "${MACHINE}" =~ ^(intel-nuc|odroid-c2|odroid-n2|odroid-xu|qemuarm|qemuarm-64|qemux86|qemux86-64|raspberrypi|raspberrypi2|raspberrypi3|raspberrypi4|raspberrypi3-64|raspberrypi4-64|tinker)$ ]]; then
+  error "Unknown machine type ${MACHINE}!"
+fi
 
 ### Main
 
