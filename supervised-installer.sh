@@ -181,9 +181,9 @@ case $ARCH in
     ;;
 esac
 
-if [[ ! "${MACHINE}" =~ ^(intel-nuc|odroid-c2|odroid-n2|odroid-xu|qemuarm|qemuarm-64|qemux86|qemux86-64|raspberrypi|raspberrypi2|raspberrypi3|raspberrypi4|raspberrypi3-64|raspberrypi4-64|tinker)$ ]]; then
-    error "Unknown machine type ${MACHINE}!"
-fi
+# if [[ ! "${MACHINE}" =~ ^(intel-nuc|odroid-c2|odroid-n2|odroid-xu|qemuarm|qemuarm-64|qemux86|qemux86-64|raspberrypi|raspberrypi2|raspberrypi3|raspberrypi4|raspberrypi3-64|raspberrypi4-64|tinker)$ ]]; then
+#    error "Unknown machine type ${MACHINE}!"
+# fi
 
 ### Main
 
@@ -193,7 +193,7 @@ if [ ! -d "$DATA_SHARE" ]; then
 fi
 
 # Read infos from web
-HASSIO_VERSION=$(curl -s $URL_VERSION | jq -e -r '.supervisor')
+HASSIO_VERSION=2020.12.6
 
 ##
 # Write configuration
@@ -208,8 +208,8 @@ EOF
 ##
 # Pull supervisor image
 info "Install supervisor Docker container"
-docker pull "$HASSIO_DOCKER:$HASSIO_VERSION" > /dev/null
-docker tag "$HASSIO_DOCKER:$HASSIO_VERSION" "$HASSIO_DOCKER:latest" > /dev/null
+# docker pull "$HASSIO_DOCKER:$HASSIO_VERSION" > /dev/null
+# docker tag "$HASSIO_DOCKER:$HASSIO_VERSION" "$HASSIO_DOCKER:latest" > /dev/null
 
 ##
 # Install Hass.io Supervisor
